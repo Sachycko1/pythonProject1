@@ -1,0 +1,23 @@
+# Список ThreeCards с вводной речью и фотографией-схемой расклада
+ThreeCards = [
+    {
+     "talk": "Это твой расклад '3 КАРТЫ'! Ознакомься с инструкцией, которая прилагается к схеме.",
+     "photo": "https://sun9-68.userapi.com/impg/LVajcchQMITBqso-i3duOO43-JCL6ETR1wRDMg/olScJTn-p24.jpg?size=1280x580&quality=96&sign=2675b60016a9dc302bb47120de89e748&type=album"
+    }
+]
+
+# Список FullCup с вводной речью и фотографией-схемой расклада
+FullCup = [
+    {
+     "talk": "Это твой расклад 'Полная Чаша'! Ознакомься с инструкцией, которая прилагается к схеме.",
+     "photo": "https://sun9-59.userapi.com/impg/pdvh17aU5oE4UOKQLrobLmmJy-zsANJQwj-00Q/5KEzs3R7s0A.jpg?size=1012x760&quality=96&sign=0d934656310f6f0d2631d3056b1a605c&type=album"
+    }
+]
+
+# Список CelticCross с вводной речью и фотографией-схемой расклада
+CelticCross = [
+    {
+     "talk": "Это твой расклад 'Кельтский крест'! Ознакомься с инструкцией, которая прилагается к схеме.",
+     "photo": "https://sun9-66.userapi.com/impg/2vVeuuwgxL34mvxiGfUyQlnZtooq5RxAbNklYQ/Cs96cfegB_4.jpg?size=650x368&quality=96&sign=8a8e3f030dc9c0f097a98a09c4dfea16&type=album"
+    }
+]
