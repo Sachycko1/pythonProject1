@@ -51,39 +51,55 @@ def variants(message):
     bot.send_message(message.chat.id, variants_text)
 
 
-# Создаем обработчик сообщений для команды /ThreeCards
+# Создаем обработчик сообщений команды /ThreeCards
 @bot.message_handler(commands=['ThreeCards'])
+def question(message):
+    mess = bot.send_message(message.chat.id, "Какой вопрос, Вас, интересует?")
+    bot.register_next_step_handler(mess, ThreeCards)
 def ThreeCards(message):
+    bot.send_message(message.chat.id,'Вот Ваш расклад:')
     for card in tarot_ThreeCards:
         bot.send_message(message.chat.id, card['talk'])  # Выводит краткую речь
         bot.send_photo(message.chat.id, card['photo'])  # Выводит схему
     for i in random.sample(Tarot_Cards, 3):  # Выбирает 3 рандомных библиотеки с картами
         bot.send_photo(message.chat.id, i['photo'])  # Выводит карту
         bot.send_message(message.chat.id, i['name'])  # Выводит название карты
-        bot.send_message(message.chat.id,f"Карта в плюсе:\n {i['meaning_up']}\nКарта в минусе:\n {i['meaning_rev']}")  # Выводит описание карты в плюсе и минусе
+        mess = (f"<u>Карта в плюсе:</u>\n {i['meaning_up']}\n<u>Карта в минусе:</u>\n {i['meaning_rev']}") # Переменная с описанием карт
+        bot.send_message(message.chat.id, mess, parse_mode='html')  # Выводит описание карты в плюсе и минусе
 
-
-# Создаем обработчик сообщений для команды /CelticCross
+# Создаем обработчик сообщений команды /CelticCross
 @bot.message_handler(commands=['CelticCross'])
+def question(message):
+    mes = bot.send_message(message.chat.id, "Какой вопрос, Вас, интересует?")
+    bot.register_next_step_handler(mes, CelticCross)
+
 def CelticCross(message):
+    bot.send_message(message.chat.id, 'Вот Ваш расклад:')
     for card in tarot_CelticCross:
         bot.send_message(message.chat.id, card['talk'])  # Выводит краткую речь
         bot.send_photo(message.chat.id, card['photo'])  # Выводит схему
     for i in random.sample(Tarot_Cards, 10): # Выбирает 10 рандомных библиотек с картами
         bot.send_photo(message.chat.id, i['photo'])  # Выводит карту
         bot.send_message(message.chat.id, i['name'])  # Выводит название карты
-        bot.send_message(message.chat.id,f"Карта в плюсе:\n {i['meaning_up']}\n Карта в минусе:\n {i['meaning_rev']}")  # Выводит описание карты в плюсе и минусе
+        mess = (f"<u>Карта в плюсе:</u>\n {i['meaning_up']}\n<u>Карта в минусе:</u>\n {i['meaning_rev']}") # Переменная с описанием карт
+        bot.send_message(message.chat.id, mess, parse_mode='html')  # Выводит описание карты в плюсе и минусе
 
-# Создаем обработчик сообщений для команды /FullCup
+# Создаем обработчик сообщений команды /FullCup
 @bot.message_handler(commands=['FullCup'])
+def question(message):
+    mes = bot.send_message(message.chat.id, "Какой вопрос, Вас, интересует?")
+    bot.register_next_step_handler(mes, FullCup)
+
 def FullCup(message):
+    bot.send_message(message.chat.id, 'Вот Ваш расклад:')
     for card in tarot_FullCup:
         bot.send_message(message.chat.id, card['talk'])  # Выводит краткую речь
         bot.send_photo(message.chat.id, card['photo'])  # Выводит схему
     for i in random.sample(Tarot_Cards, 4):  # Выбирает 4 рандомных библиотеки с картами
         bot.send_photo(message.chat.id, i['photo'])  # Выводит карту
         bot.send_message(message.chat.id, i['name'])  # Выводит название карты
-        bot.send_message(message.chat.id,f"Карта в плюсе:\n {i['meaning_up']}\n Карта в минусе:\n {i['meaning_rev']}")  # Выводит описание карты в плюсе и минусе
+        mess = (f"<u>Карта в плюсе:</u>\n {i['meaning_up']}\n<u>Карта в минусе:</u>\n {i['meaning_rev']}") # Переменная с описанием карт
+        bot.send_message(message.chat.id, mess, parse_mode='html')  # Выводит описание карты в плюсе и минусе
 
 # Запускаем работу бота
 bot.polling(none_stop=True)
