@@ -1,46 +1,48 @@
-import random
-import telebot # Импортируем модуль для написания тг бота
+import telebot # Импортируем библиотеку для написания тг бота
 from telebot import types # Импортируем модуль для определения типов для объектов тг
-from db_library import db_module # Импортируем модуль для использования значений карт Таро
+import random # Импортируем модуль рандомайзера
+from library import module # Импортируем модуль для использования значений карт Таро
 from layout_lib import layout # Иммпортируем модуль для использования схем раскладов таро
 
 tarot_ThreeCards = layout.ThreeCards # Присваиваем переменной список ThreeCards
 tarot_FullCup = layout.FullCup # Присваиваем переменной список FullCup
 tarot_CelticCross = layout.CelticCross # Присваиваем переменной список CelticCross
-Tarot_Cards = db_module.cards # Присваиваем переменной список cards
+Tarot_Cards = module.cards # Присваиваем переменной список cards
 
 bot = telebot.TeleBot('6806588578:AAGN92P9oSov7x96oxCZ1HqDOnI8Q1BfY-o') # ТОКЕН
 
 # Список команд бота
 commands = [
-    '/start',
     '/help',
+    '/start',
     '/variants',
     '/ThreeCards',
     '/CelticCross',
     '/FullCup'
 ]
 
-# Создаем обработчик сообщений для команды /help
+# Создаем обработчик сообщений команды /help
 @bot.message_handler(commands=['help'])
 def help(message):
 
-# Создать клавиатуру с кнопками
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1) # Создаем экземпляр разметки клавиатуры с параметрами: однострочные (кнопки), количество кнопок в строке = 1
+# Создаем клавиатуру с кнопками
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1) # Создаем экземпляр разметки клавиатуры с параметрами: корректные (подстраиваются под размер экрана), количество кнопок в строке = 1
     start = types.KeyboardButton('/start')
     variants = types.KeyboardButton('/variants')
     help = types.KeyboardButton('/help')
     markup.add(start, variants, help)
     bot.send_message(message.chat.id, "Выберите кнопку", reply_markup=markup) # Отправляем сообщение пользователю с разметкой клавиатуры
 
-# Создаем обработчик сообщений для команды /start
+# Создаем обработчик сообщений команды /start
 @bot.message_handler(commands=['start'])
 def start(message):
-    mess = (f'Здравствуй, <b>{message.from_user.first_name}</b>, я бот <u>RyderWaiteTarot</u>, и я могу сделать тебе бесплатный расклад! Но прежде чем его сделать, задумайся какой вопрос тебя беспокоит, а также знай, что карты не расскажут что-либо на "Да" или "Нет".\n'
-            f'Пиши <b>/variants</b>, чтобы узнать какие расклады я могу делать. Если ты не знаешь какие команды здесь есть, пиши <b>/help</b>')
+    mess = (f'Здравствуй, <b>{message.from_user.first_name}</b>, я бот <u>RyderWaiteTarot</u>, и я могу сделать тебе бесплатный расклад!\n'
+            f'Но прежде чем его сделать, задумайся какой вопрос тебя беспокоит, а также знай, что карты не расскажут что-либо на "Да" или "Нет".\n'
+            f'Пиши <b>/variants</b>, чтобы узнать какие расклады я могу делать.\n'
+            f'Если ты не знаешь какие команды здесь есть, пиши <b>/help</b>')
     bot.send_message(message.chat.id, mess, parse_mode='html')
 
-# Создаем обработчик сообщений для команды /variants
+# Создаем обработчик сообщений команды /variants
 @bot.message_handler(commands=['variants'])
 def variants(message):
     variants_text = """
@@ -49,7 +51,6 @@ def variants(message):
 /FullCup - Полная чаша. Простой расклад, для анализа финансовой ситуации.
     """
     bot.send_message(message.chat.id, variants_text)
-
 
 # Создаем обработчик сообщений команды /ThreeCards
 @bot.message_handler(commands=['ThreeCards'])
@@ -101,5 +102,5 @@ def FullCup(message):
         mess = (f"<u>Карта в плюсе:</u>\n {i['meaning_up']}\n<u>Карта в минусе:</u>\n {i['meaning_rev']}") # Переменная с описанием карт
         bot.send_message(message.chat.id, mess, parse_mode='html')  # Выводит описание карты в плюсе и минусе
 
-# Запускаем работу бота
+# Запуск работы бота
 bot.polling(none_stop=True)
